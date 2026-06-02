@@ -392,6 +392,5 @@ if user_query:
         
         try:
             write_transcript(st.session_state.transcript_path, st.session_state.transcript)
-            st.toast(f"💾 Saved transcript: {st.session_state.transcript_path.name}", icon="💾")
         except Exception as e:
             st.error(f"Error saving transcript: {e}")
