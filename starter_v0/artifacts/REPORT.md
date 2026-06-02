@@ -70,6 +70,9 @@ List of cases added to `data/eval_group.json`:
 |---|---|---|---|
 | Wikipedia Search | `tools/wikipedia/tool.py` | Querying MediaWiki API and getting summaries for search hits. | Added search results length check to prevent empty loops. |
 | UI | `app.py` | Streamlit chat UI with toggling execution trace logs. | Added try-except around completions to catch API key errors gracefully. |
+| Translate Tool | `tools/translate/tool.py` | Translating text using Google Translate public API. | Handling empty inputs safely. |
+| Crypto Ticker | `tools/crypto/tool.py` | Fetching real-time coin prices from Binance API. | Handling ticker mapping (e.g. BTC to BTCUSDT). |
+| Weather Info | `tools/weather/tool.py` | Querying current weather details using wttr.in. | Fallback mapping for invalid locations. |
 
 ## Reflection
 

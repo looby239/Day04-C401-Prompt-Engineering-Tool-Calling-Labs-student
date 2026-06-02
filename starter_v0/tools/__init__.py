@@ -18,6 +18,9 @@ from .social_search.tool import search_tweets
 from .send.tool import send_telegram
 from .lookup.tool import web_search
 from .wikipedia.tool import wikipedia_search
+from .translate.tool import translate_text
+from .crypto.tool import get_crypto_price
+from .weather.tool import get_weather
 
 
 # NOTE (starter_v0): tool names here are intentionally vague. These keys are the
@@ -37,6 +40,9 @@ TOOL_FUNCTIONS = {
     "papers": arxiv_search,
     "paper_text": get_arxiv_paper_text,
     "wikipedia": wikipedia_search,
+    "translate": translate_text,
+    "crypto": get_crypto_price,
+    "weather": get_weather,
 }
 
 

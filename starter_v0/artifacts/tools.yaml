@@ -125,3 +125,30 @@ tools:
         query: {type: string, default: "", description: "Từ khóa cần tìm kiếm trên Wikipedia"}
         limit: {type: integer, default: 3, description: "Số lượng bài viết cần lấy"}
       required: [query]
+
+  - name: translate
+    description: "Dịch một đoạn văn bản từ ngôn ngữ nguồn sang ngôn ngữ đích."
+    parameters:
+      type: object
+      properties:
+        text: {type: string, default: "", description: "Văn bản cần dịch"}
+        target_lang: {type: string, default: "vi", description: "Ngôn ngữ đích (mã ví dụ: vi, en, ja, fr, ...)"}
+        source_lang: {type: string, default: "auto", description: "Ngôn ngữ nguồn (mặc định auto để tự phát hiện)"}
+      required: [text]
+
+  - name: crypto
+    description: "Lấy giá thời gian thực của một đồng tiền điện tử (ví dụ: BTC, ETH, BNB) từ sàn Binance."
+    parameters:
+      type: object
+      properties:
+        symbol: {type: string, default: "", description: "Ký hiệu đồng tiền điện tử (ví dụ: BTC, ETH)"}
+      required: [symbol]
+
+  - name: weather
+    description: "Lấy thông tin thời tiết hiện tại của một địa điểm hoặc thành phố."
+    parameters:
+      type: object
+      properties:
+        location: {type: string, default: "", description: "Tên thành phố hoặc địa điểm"}
+      required: [location]
+

@@ -120,7 +120,10 @@ quick_prompts = {
     "Missing Article URL": "Tóm tắt bài viết này hộ mình",
     "Telegram Confirmation": "Đăng bản tin này lên Telegram giúp mình",
     "Wikipedia Search": "Tra Wikipedia về lịch sử phát triển của mạng Internet.",
-    "Twitter Topic Search": "Mọi người đang bàn gì về GPT-5 trên Twitter?"
+    "Twitter Topic Search": "Mọi người đang bàn gì về GPT-5 trên Twitter?",
+    "Translate Tool": "Dịch giúp mình câu 'Artificial Intelligence is transforming our future' sang tiếng Việt nhé.",
+    "Crypto Price": "Giá của đồng tiền điện tử ETH hiện tại trên Binance là bao nhiêu?",
+    "Weather Info": "Cho mình biết thời tiết hiện tại ở Đà Nẵng thế nào?"
 }
 
 for label, prompt_text in quick_prompts.items():
