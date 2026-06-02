@@ -1,5 +1,44 @@
 # Day 04 Lab v2 Report — Research Agent
 
+# PHẦN A — Giới thiệu agent
+
+## A1. Agent này làm được gì
+
+Research Agent hỗ trợ tìm kiếm tin tức trên mạng xã hội và web, tra cứu tài liệu nội bộ, tìm kiếm Wikipedia và bài báo arXiv, dịch thuật, lấy tỷ giá tiền số, dự báo thời tiết, tự động tổng hợp digest và gửi lên Telegram sau khi có sự xác nhận của người dùng.
+
+### Link dùng thử (deploy)
+**URL**: https://charter-survive-sku-model.trycloudflare.com
+
+## A2. Tool agent có
+
+| Tên tool | Làm được gì | Tool mới nhóm thêm? |
+|---|---|---|
+| clarify | Hỏi lại người dùng khi thiếu thông tin hoặc yêu cầu xác nhận | không |
+| timeline | Lấy các bài đăng gần đây của một người dùng trên mạng xã hội | không |
+| social_search | Tìm kiếm các bài đăng trên mạng xã hội theo từ khóa | không |
+| lookup | Tra cứu thông tin trên internet (tin tức hoặc tìm kiếm chung) | không |
+| fetch | Lấy nội dung văn bản từ một địa chỉ URL | không |
+| format | Trình bày và định dạng danh sách dữ liệu thành bản tổng hợp (digest) | không |
+| send | Gửi một đoạn văn bản (ví dụ lên Telegram) khi đã có cờ xác nhận | không |
+| policy | Tìm kiếm trong tài liệu quy định nội bộ của công ty | không |
+| papers | Tìm kiếm bài báo khoa học trên arXiv | không |
+| paper_text | Lấy nội dung đầy đủ của bài báo arXiv theo đường dẫn hoặc ID | không |
+| wikipedia | Tìm kiếm bài viết và lấy nội dung tóm tắt từ Wikipedia (có tự động nhận diện tiếng Việt) | **Có** |
+| github_search | Tìm kiếm các repository trên GitHub (sắp xếp theo sao, forks, cập nhật) | **Có** |
+| translate | Dịch đoạn văn bản sang ngôn ngữ chỉ định sử dụng Google Translate API | **Có** |
+| crypto | Lấy giá thời gian thực của đồng coin (BTC, ETH...) từ Binance API | **Có** |
+| weather | Lấy thông tin thời tiết hiện tại của một địa điểm từ wttr.in | **Có** |
+
+## A3. Câu hỏi mẫu để thử
+
+1. *"Tra Wikipedia về lịch sử phát triển của mạng Internet."*
+2. *"Dịch giúp mình đoạn này sang tiếng Việt: 'Artificial Intelligence is transforming our future'"*
+3. *"Giá của đồng coin ETH hiện tại trên Binance là bao nhiêu?"*
+4. *"Thời tiết hiện tại ở Đà Nẵng thế nào?"*
+5. *"Tìm các repository về 'stable diffusion' trên GitHub."*
+
+---
+
 ## Team
 
 - **Team**: Zone 8 - Team 5
