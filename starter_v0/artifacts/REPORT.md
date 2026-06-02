@@ -10,13 +10,13 @@ Trần Trung Kiên - 2A202600850
 
 ## Final Metrics
 
-- **Final version**: v3
-- **Final artifact_version**: `v3+pe658de69e113+t3c77e0a487fa`
+- **Final version**: v4
+- **Final artifact_version**: `v4+p245fdf2e05b3+te385c98358a6`
 - **Best base run file**: `runs/v3_B_base_openrouter_20260602T135319192847.json`
 - **Base case accuracy**: 1.0 (100%)
 - **Base tool routing accuracy**: 1.0 (100%)
 - **Base argument accuracy**: 1.0 (100%)
-- **Group eval run file**: `runs/v3_B_group_openrouter_20260602T135538897538.json`
+- **Group eval run file**: `runs/v3_B_group_openrouter_20260602T151548598670.json`
 - **Group eval accuracy**: 1.0 (100%)
 - **Chat transcript file**: `transcripts/v3_openrouter_20260602T135912332846.transcript.json`
 
@@ -28,6 +28,7 @@ Trần Trung Kiên - 2A202600850
 | v1 | `system_prompt.md` | Adding explicit instructions for out-of-scope, missing info, confirmation, and handle mapping will improve routing and argument accuracy | 0.65 | 0.75 | `runs/v1_B_base_openrouter_20260602T130157915173.json` |
 | v2 | `system_prompt.md` | Explicitly checking for URL presence in user input, forcing explicit response_type argument, and prioritizing confirmation over clarify-text will solve URL routing and boundary errors | 0.75 | 0.90 | `runs/v2_B_base_openrouter_20260602T130343289003.json` |
 | v3 | `system_prompt.md` | Stripping helper words like 'tin' and 'tweet' from the query parameters, and making tool switching permanent will solve parallel naming mismatches and multi-turn tool switching retention | 0.90 | 1.00 | `runs/v3_B_base_openrouter_20260602T135319192847.json` |
+| v4 | `tools.yaml`, `system_prompt.md` | Integration of bonus tools (GitHub, Translate, Crypto, Weather) to provide a complete research assistant experience | 1.00 | 1.00 | `runs/v3_B_group_openrouter_20260602T151548598670.json` |
 
 ## Failure Analysis
 
