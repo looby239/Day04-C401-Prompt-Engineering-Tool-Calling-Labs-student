@@ -1,0 +1,28 @@
+{
+  "transcript_id": "v3_openrouter_20260602T135844140677",
+  "version": "v3",
+  "artifact_version": "v3+pe658de69e113+t3c77e0a487fa",
+  "prompt_hash": "e658de69e113a8ccaad635717591e5306d53a0988cbb39d9502307d60df5dbb4",
+  "tools_hash": "3c77e0a487fac688f5db3a79711592318bcd5df8b1916c4508dbda5f43afb070",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "C:\\Users\\looby\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "C:\\Users\\looby\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-06-02T13:58:44",
+  "updated_at": "2026-06-02T13:59:01",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-06-02T13:58:55",
+      "user": "Tin tá»©c cÃ´ng nghá»‡ hÃ´m nay cÃ³ gÃ¬ má»›i khÃ´ng?",
+      "status": "provider_error",
+      "assistant_text": null,
+      "rounds": [],
+      "tool_events": [],
+      "error": "UnicodeEncodeError: 'charmap' codec can't encode character '\\U0001f527' in position 0: character maps to <undefined>",
+      "ended_at": "2026-06-02T13:59:01"
+    }
+  ]
+}

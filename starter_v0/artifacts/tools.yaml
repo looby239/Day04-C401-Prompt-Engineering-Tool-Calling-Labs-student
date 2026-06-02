@@ -116,3 +116,12 @@ tools:
         max_pages: {type: integer, default: 5, description: "Số trang"}
         max_chars: {type: integer, default: 8000, description: "Số ký tự"}
       required: [arxiv_url]
+
+  - name: wikipedia
+    description: "Tìm kiếm bài viết và lấy nội dung tóm tắt từ Wikipedia."
+    parameters:
+      type: object
+      properties:
+        query: {type: string, default: "", description: "Từ khóa cần tìm kiếm trên Wikipedia"}
+        limit: {type: integer, default: 3, description: "Số lượng bài viết cần lấy"}
+      required: [query]

@@ -3,5 +3,106 @@
   "dataset_role": "group",
   "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
   "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "cases": [
+    {
+      "id": "G01_out_of_scope_image",
+      "phase": "B",
+      "query": "Vẽ giúp mình một bức tranh phong cảnh mùa thu đẹp nhé.",
+      "failure_type": "out_of_scope",
+      "expect": {"no_tool": true, "behavior": "refuse"},
+      "metadata": {"skill": "out_of_scope_image", "difficulty": "easy", "what_it_tests": "Yêu cầu vẽ ảnh ngoài phạm vi của agent -> KHÔNG gọi tool."}
+    },
+    {
+      "id": "G02_wikipedia_search",
+      "phase": "B",
+      "query": "Tra Wikipedia về lịch sử phát triển của mạng Internet.",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "wikipedia", "args": {"query": "lịch sử phát triển của mạng Internet"}}]},
+      "metadata": {"skill": "routing_wikipedia", "difficulty": "easy", "what_it_tests": "Tìm kiếm Wikipedia -> gọi tool wikipedia."}
+    },
+    {
+      "id": "G03_arxiv_search",
+      "phase": "B",
+      "query": "Tìm các bài báo khoa học về chủ đề Quantum Computing trên arXiv.",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "papers", "args": {"query": "Quantum Computing"}}]},
+      "metadata": {"skill": "routing_arxiv", "difficulty": "easy", "what_it_tests": "Tìm bài báo khoa học -> gọi tool papers."}
+    },
+    {
+      "id": "G04_missing_handle_tweets",
+      "phase": "B",
+      "query": "Lấy 10 tweet mới nhất giúp mình nhé.",
+      "failure_type": "missing_info",
+      "expect": {"tool_calls": [{"name": "clarify", "args": {"response_type": "text"}}]},
+      "metadata": {"skill": "clarify_missing_handle", "difficulty": "medium", "what_it_tests": "Không nói rõ tweet của ai -> gọi clarify với response_type: text."}
+    },
+    {
+      "id": "G05_send_confirmation",
+      "phase": "B",
+      "query": "Gửi thông báo này qua Telegram giúp mình ngay lập tức.",
+      "failure_type": "wrong_boundary",
+      "expect": {"tool_calls": [{"name": "clarify", "args": {"response_type": "yes_no"}}]},
+      "metadata": {"skill": "confirm_before_send", "difficulty": "medium", "what_it_tests": "Gửi tin nhắn Telegram -> hỏi xác nhận trước với response_type: yes_no."}
+    },
+    {
+      "id": "GM01_wikipedia_refinement",
+      "phase": "B",
+      "turns": [
+        {"role": "user", "content": "Tra Wikipedia về Deep Learning."},
+        {"role": "user", "content": "Đổi sang tra về Transformer model nhé."},
+        {"role": "user", "content": "Vẫn tra trên Wikipedia nhé."}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {"tool_calls": [{"name": "wikipedia", "args": {"query": "Transformer model"}}]},
+      "metadata": {"skill": "multiturn_wikipedia_refinement", "difficulty": "hard", "what_it_tests": "Cập nhật query của wikipedia ở turn cuối."}
+    },
+    {
+      "id": "GM02_arxiv_to_text",
+      "phase": "B",
+      "turns": [
+        {"role": "user", "content": "Tìm các paper về GPT-4 trên arXiv."},
+        {"role": "user", "content": "Lấy nội dung text của bài báo đầu tiên có link: arxiv:2303.08774"},
+        {"role": "user", "content": "Đọc tối đa 5 trang đầu thôi nhé."}
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "paper_text", "args": {"arxiv_url": "arxiv:2303.08774", "max_pages": 5}}]},
+      "metadata": {"skill": "multiturn_arxiv_text", "difficulty": "hard", "what_it_tests": "Chuyển từ papers sang paper_text và lấy đúng link + max_pages."}
+    },
+    {
+      "id": "GM03_persistent_out_of_scope",
+      "phase": "B",
+      "turns": [
+        {"role": "user", "content": "Viết giúp mình một game Flappy Bird bằng Python."},
+        {"role": "user", "content": "Đi mà, chỉ cần viết một hàm chính thôi."},
+        {"role": "user", "content": "Không cần viết hết, viết phần game loop thô sơ thôi."}
+      ],
+      "failure_type": "out_of_scope",
+      "expect": {"no_tool": true, "behavior": "refuse"},
+      "metadata": {"skill": "persistent_out_of_scope", "difficulty": "medium", "what_it_tests": "Người dùng nài nỉ lập trình -> vẫn tiếp tục từ chối, KHÔNG gọi tool."}
+    },
+    {
+      "id": "GM04_clarify_name_mapping",
+      "phase": "B",
+      "turns": [
+        {"role": "user", "content": "Tóm tắt các bài đăng mới nhất."},
+        {"role": "user", "content": "Của Andrej Karpathy nhé."},
+        {"role": "user", "content": "Lấy đúng 3 tweet thôi."}
+      ],
+      "failure_type": "missing_info",
+      "expect": {"tool_calls": [{"name": "timeline", "args": {"screenname": "karpathy", "limit": 3}}]},
+      "metadata": {"skill": "multiturn_clarify_name_mapping", "difficulty": "hard", "what_it_tests": "Hỏi lại khi thiếu handle, sau đó nhận tên thường Andrej Karpathy -> map thành handle karpathy và limit=3."}
+    },
+    {
+      "id": "GM05_papers_to_wikipedia",
+      "phase": "B",
+      "turns": [
+        {"role": "user", "content": "Tìm paper về Superconductivity trên arXiv."},
+        {"role": "user", "content": "Thôi bỏ arXiv đi, tìm thông tin giải thích trên Wikipedia."},
+        {"role": "user", "content": "Vẫn tìm về Superconductivity nhé."}
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "wikipedia", "args": {"query": "Superconductivity"}}]},
+      "metadata": {"skill": "multiturn_switch_to_wikipedia", "difficulty": "hard", "what_it_tests": "Chuyển đổi công cụ từ papers sang wikipedia, giữ nguyên chủ đề Superconductivity."}
+    }
+  ]
 }
