@@ -16,8 +16,12 @@ def wikipedia_search(query: str = "", limit: int = 3) -> dict[str, Any]:
     }
     
     try:
-        # Step 1: Search Wikipedia for the query
-        search_url = "https://en.wikipedia.org/w/api.php"
+        # Step 1: Detect language and Search Wikipedia for the query
+        import re
+        vietnamese_pattern = re.compile(r'[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđĐ]')
+        lang = "vi" if vietnamese_pattern.search(query) else "en"
+        search_url = f"https://{lang}.wikipedia.org/w/api.php"
+        
         search_params = {
             "action": "query",
             "list": "search",
@@ -32,6 +36,15 @@ def wikipedia_search(query: str = "", limit: int = 3) -> dict[str, Any]:
         search_data = search_resp.json()
         
         search_results = search_data.get("query", {}).get("search", [])
+        if not search_results and lang == "vi":
+            # Fallback to English Wikipedia
+            lang = "en"
+            search_url = f"https://{lang}.wikipedia.org/w/api.php"
+            search_resp = requests.get(search_url, params=search_params, headers=headers, timeout=TIMEOUT)
+            search_resp.raise_for_status()
+            search_data = search_resp.json()
+            search_results = search_data.get("query", {}).get("search", [])
+
         if not search_results:
             return {"tool": "wikipedia", "query": query, "items": []}
             
@@ -63,12 +76,12 @@ def wikipedia_search(query: str = "", limit: int = 3) -> dict[str, Any]:
             
             # Format the URL safely
             safe_title = title.replace(" ", "_")
-            url = f"https://en.wikipedia.org/wiki/{safe_title}"
+            url = f"https://{lang}.wikipedia.org/wiki/{safe_title}"
             
             items.append({
                 "title": title,
                 "url": url,
-                "source": "Wikipedia",
+                "source": "Wikipedia (VI)" if lang == "vi" else "Wikipedia",
                 "summary": page_content or result.get("snippet", "")
             })
             

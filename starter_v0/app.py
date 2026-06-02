@@ -111,6 +111,23 @@ show_trace = st.sidebar.checkbox(
     help="Display LLM thoughts, tool invocation details, and live outputs during run."
 )
 
+# Quick Test Prompts Sidebar Selection
+st.sidebar.markdown("---")
+st.sidebar.subheader("💡 Quick Test Prompts")
+quick_prompts = {
+    "Out of Scope (Math)": "Giải giúp mình bài toán tích phân: nguyên hàm của x^2 là gì?",
+    "Missing Twitter Handle": "Tóm tắt 5 tweet mới nhất giúp mình",
+    "Missing Article URL": "Tóm tắt bài viết này hộ mình",
+    "Telegram Confirmation": "Đăng bản tin này lên Telegram giúp mình",
+    "Wikipedia Search": "Tra Wikipedia về lịch sử phát triển của mạng Internet.",
+    "Twitter Topic Search": "Mọi người đang bàn gì về GPT-5 trên Twitter?"
+}
+
+for label, prompt_text in quick_prompts.items():
+    if st.sidebar.button(label, key=f"btn_{label}", use_container_width=True):
+        st.session_state.temp_prompt = prompt_text
+        st.rerun()
+
 # System Prompt display and customization
 st.sidebar.markdown("---")
 st.sidebar.subheader("📝 System Prompt")
@@ -237,8 +254,17 @@ for msg in st.session_state.messages:
                     st.json(event["result"])
                     st.markdown("---")
 
-# User Input
-if user_query := st.chat_input("Enter your request here..."):
+# Handle user input (either from quick prompts or standard chat input box)
+user_query = None
+if "temp_prompt" in st.session_state and st.session_state.temp_prompt:
+    user_query = st.session_state.temp_prompt
+    del st.session_state.temp_prompt  # clear it immediately
+
+chat_input_val = st.chat_input("Enter your request here...")
+if chat_input_val:
+    user_query = chat_input_val
+
+if user_query:
     # Render user query
     with st.chat_message("user"):
         st.markdown(user_query)
