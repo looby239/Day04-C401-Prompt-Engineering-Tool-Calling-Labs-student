@@ -4,7 +4,8 @@
 
 - **Team**: Zone 8 - Team 5
 Nguyễn Thành Lộc - 2A202600817
-
+Đặng Tiến Quyền - 2A202600896
+Trần Trung Kiên - 2A202600850
 - **Provider/model**: OpenRouter / `openai/gpt-4o-mini`
 
 ## Final Metrics
