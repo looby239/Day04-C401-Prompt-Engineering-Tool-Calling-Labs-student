@@ -75,9 +75,19 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 if "history" not in st.session_state:
     st.session_state.history = []
+if "transcript" not in st.session_state:
+    st.session_state.transcript = None
+if "transcript_path" not in st.session_state:
+    st.session_state.transcript_path = None
 
 # Sidebar configuration
 st.sidebar.title("⚙️ Configuration")
+
+version_input = st.sidebar.text_input(
+    "Version Label",
+    value="v3",
+    help="Version tag used for saving transcripts (e.g. v3)"
+)
 
 provider_option = st.sidebar.selectbox(
     "Select Model Provider",
@@ -154,6 +164,8 @@ system_prompt = st.sidebar.text_area(
 if st.sidebar.button("🧹 Clear Chat History", use_container_width=True):
     st.session_state.messages = []
     st.session_state.history = []
+    st.session_state.transcript = None
+    st.session_state.transcript_path = None
     st.rerun()
 
 # Setup Agent dependencies
@@ -161,6 +173,45 @@ tool_declarations = load_tool_declarations(ROOT / "artifacts" / "tools.yaml")
 openai_tools = to_openai_tools(tool_declarations)
 provider = make_provider(provider_option)
 model_name = model_input if model_input.strip() else getattr(provider, "default_model", None)
+
+# Initialize unique transcript file for this Streamlit session
+if st.session_state.transcript is None:
+    import re
+    from versioning import build_artifact_version, artifact_version_dict
+    from chat import now_iso, safe_slug
+    
+    timestamp = datetime.now().strftime("%Y%m%dT%H%M%S%f")
+    transcript_id = "_".join([
+        safe_slug(version_input),
+        safe_slug(provider_option),
+        timestamp,
+    ])
+    
+    # Path to save
+    transcripts_dir = ROOT / "transcripts"
+    transcript_path = transcripts_dir / f"{transcript_id}.transcript.json"
+    
+    # Load artifact version
+    try:
+        artifact_version = build_artifact_version(version_input, ROOT / "artifacts" / "system_prompt.md", ROOT / "artifacts" / "tools.yaml")
+        version_details = artifact_version_dict(artifact_version)
+    except Exception:
+        version_details = {"version": version_input}
+        
+    st.session_state.transcript_path = transcript_path
+    st.session_state.transcript = {
+        "transcript_id": transcript_id,
+        **version_details,
+        "provider": provider_option,
+        "model": model_name,
+        "system_prompt": str(ROOT / "artifacts" / "system_prompt.md"),
+        "tools": str(ROOT / "artifacts" / "tools.yaml"),
+        "history_window": 5,
+        "max_tool_rounds": max_rounds,
+        "created_at": now_iso(),
+        "updated_at": now_iso(),
+        "turns": [],
+    }
 
 # Top-level helper function for agent loop execution
 def run_agent_loop(working_messages, openai_tools, provider, model_name, max_rounds, show_trace, status_box):
@@ -324,3 +375,22 @@ if user_query:
         })
         st.session_state.history.append({"role": "user", "content": user_query})
         st.session_state.history.append({"role": "assistant", "content": agent_final_text})
+
+        # Build turn record and save to transcript file
+        from chat import now_iso, write_transcript
+        turn_record = {
+            "turn_index": len(st.session_state.transcript["turns"]) + 1,
+            "started_at": now_iso(),
+            "ended_at": now_iso(),
+            "user": user_query,
+            "status": "answered" if "error" not in agent_final_text else "provider_error",
+            "assistant_text": agent_final_text,
+            "tool_events": all_tool_events,
+        }
+        st.session_state.transcript["turns"].append(turn_record)
+        
+        try:
+            write_transcript(st.session_state.transcript_path, st.session_state.transcript)
+            st.toast(f"💾 Saved transcript: {st.session_state.transcript_path.name}", icon="💾")
+        except Exception as e:
+            st.error(f"Error saving transcript: {e}")
