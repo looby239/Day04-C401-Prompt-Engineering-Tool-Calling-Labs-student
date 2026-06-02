@@ -2,7 +2,9 @@
 
 ## Team
 
-- **Team**: Antigravity Pair
+- **Team**: Zone 8 - Team 5
+Nguyễn Thành Lộc - 2A202600817
+
 - **Provider/model**: OpenRouter / `openai/gpt-4o-mini`
 
 ## Final Metrics
