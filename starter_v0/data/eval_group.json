@@ -105,7 +105,27 @@
       "metadata": {"skill": "multiturn_switch_to_wikipedia", "difficulty": "hard", "what_it_tests": "Chuyển đổi công cụ từ papers sang wikipedia, giữ nguyên chủ đề Superconductivity."}
     },
     {
-      "id": "G06_translate_text",
+      "id": "G06_github_search",
+      "phase": "B",
+      "query": "Tìm các repository về 'stable diffusion' trên GitHub.",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "github_search", "args": {"query": "stable diffusion"}}]},
+      "metadata": {"skill": "routing_github", "difficulty": "easy", "what_it_tests": "Tìm kiếm GitHub -> gọi tool github_search."}
+    },
+    {
+      "id": "GM06_github_sort_refinement",
+      "phase": "B",
+      "turns": [
+        {"role": "user", "content": "Tìm repository về 'langchain' trên GitHub."},
+        {"role": "user", "content": "Sắp xếp theo các repo mới cập nhật nhé."},
+        {"role": "user", "content": "Lấy 10 kết quả."}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {"tool_calls": [{"name": "github_search", "args": {"query": "langchain", "limit": 10, "sort": "updated"}}]},
+      "metadata": {"skill": "multiturn_github_refinement", "difficulty": "hard", "what_it_tests": "Cập nhật query, limit và sort của github_search qua nhiều lượt."}
+    },
+    {
+      "id": "G07_translate_text",
       "phase": "B",
       "query": "Dịch giúp mình đoạn này sang tiếng Việt: 'Artificial Intelligence is transforming our future'",
       "failure_type": "wrong_tool",
@@ -113,7 +133,7 @@
       "metadata": {"skill": "translate_text", "difficulty": "easy", "what_it_tests": "Yêu cầu dịch văn bản -> gọi tool translate."}
     },
     {
-      "id": "G07_crypto_price",
+      "id": "G08_crypto_price",
       "phase": "B",
       "query": "Giá của đồng coin ETH hiện tại trên Binance là bao nhiêu?",
       "failure_type": "wrong_tool",
@@ -121,7 +141,7 @@
       "metadata": {"skill": "crypto_price", "difficulty": "easy", "what_it_tests": "Yêu cầu lấy giá crypto -> gọi tool crypto."}
     },
     {
-      "id": "G08_weather_info",
+      "id": "G09_weather_info",
       "phase": "B",
       "query": "Thời tiết hiện tại ở Đà Nẵng thế nào?",
       "failure_type": "wrong_tool",

@@ -57,6 +57,8 @@ List of cases added to `data/eval_group.json`:
 | GM03_persistent_out_of_scope | Persistent programming request | Refuse to answer, call no tools | PASS |
 | GM04_clarify_name_mapping | Missing handle clarified with name | call `timeline` with handle mapping | PASS |
 | GM05_papers_to_wikipedia | Switch from arXiv to Wikipedia | call `wikipedia` tool with topic | PASS |
+| G06_github_search | Wikipedia search for a query | call `github_search` tool | PASS |
+| GM06_github_sort_refinement | Switch from arXiv to Wikipedia | call `github_search` tool with correct args | PASS |
 
 ## Live Chat Evidence
 
@@ -69,6 +71,7 @@ List of cases added to `data/eval_group.json`:
 | Bonus | Evidence File | What Worked | Risk / Guardrail |
 |---|---|---|---|
 | Wikipedia Search | `tools/wikipedia/tool.py` | Querying MediaWiki API and getting summaries for search hits. | Added search results length check to prevent empty loops. |
+| GitHub Search | `tools/github_search/tool.py` | Querying GitHub API for repositories. | Added support for sorting and limit parameters. |
 | UI | `app.py` | Streamlit chat UI with toggling execution trace logs. | Added try-except around completions to catch API key errors gracefully. |
 | Translate Tool | `tools/translate/tool.py` | Translating text using Google Translate public API. | Handling empty inputs safely. |
 | Crypto Ticker | `tools/crypto/tool.py` | Fetching real-time coin prices from Binance API. | Handling ticker mapping (e.g. BTC to BTCUSDT). |
@@ -83,4 +86,4 @@ List of cases added to `data/eval_group.json`:
 - **Which failure needed manual review instead of automatic grading?**
   Refusal messages for out-of-scope requests or chat clarifications, as they require human assessment of tone and conversational helpfulness.
 - **What would you improve next?**
-  Adding semantic search on retrieved documents to improve answer precision, and supporting async parallel API requests for faster tool runs.
+  Adding semantic search on retrieved documents to improve answer precision, supporting async parallel API requests for faster tool runs, and expanding the GitHub tool to search for specific files or issues.

@@ -126,6 +126,16 @@ tools:
         limit: {type: integer, default: 3, description: "Số lượng bài viết cần lấy"}
       required: [query]
 
+  - name: github_search
+    description: "Tìm kiếm các repository trên GitHub."
+    parameters:
+      type: object
+      properties:
+        query: {type: string, default: "", description: "Từ khóa tìm kiếm (ví dụ: 'machine learning')"}
+        limit: {type: integer, default: 5, description: "Số lượng repository cần lấy"}
+        sort: {type: string, enum: [stars, forks, updated], default: "stars", description: "Tiêu chí sắp xếp"}
+      required: [query]
+
   - name: translate
     description: "Dịch một đoạn văn bản từ ngôn ngữ nguồn sang ngôn ngữ đích."
     parameters:
@@ -151,4 +161,3 @@ tools:
       properties:
         location: {type: string, default: "", description: "Tên thành phố hoặc địa điểm"}
       required: [location]
-
