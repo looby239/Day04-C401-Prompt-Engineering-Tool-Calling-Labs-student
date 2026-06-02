@@ -1,0 +1,1215 @@
+{
+  "run_id": "v3_B_group_openrouter_20260602T153823462798",
+  "version": "v3",
+  "artifact_version": "v3+pa4f40e6bf80e+te7ddb1d9334d",
+  "prompt_hash": "a4f40e6bf80eaf57c6796acd97dc3897e098d1d1d989c600f02b4252e990dd84",
+  "tools_hash": "e7ddb1d9334d28283aa119e30c84c910cbb94e30f11a0bc884f172d4782853ef",
+  "phase": "B",
+  "suite": "group",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "C:\\AI_2026\\project\\group\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "C:\\AI_2026\\project\\group\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\tools.yaml",
+  "eval_cases": "data\\eval_group.json",
+  "dataset_id": "day04_v2_research_group",
+  "dataset_role": "group",
+  "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
+  "generated_at": "2026-06-02T15:38:23",
+  "summary": {
+    "total_cases": 15,
+    "measured_cases": 15,
+    "provider_error_cases": 0,
+    "passed_cases": 15,
+    "case_accuracy": 1.0,
+    "tool_routing_accuracy": 1.0,
+    "argument_accuracy": 1.0,
+    "multiturn_accuracy": 1.0,
+    "failure_counts": {},
+    "observed_mismatch_counts": {}
+  },
+  "results": [
+    {
+      "id": "G01_out_of_scope_image",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "out_of_scope_image",
+        "difficulty": "easy",
+        "what_it_tests": "Yêu cầu vẽ ảnh ngoài phạm vi của agent -> KHÔNG gọi tool."
+      },
+      "input": "Vẽ giúp mình một bức tranh phong cảnh mùa thu đẹp nhé.",
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Xin lỗi, nhưng tôi không thể vẽ tranh hoặc tạo ra nội dung sáng tạo như vậy. Tuy nhiên, tôi có thể giúp bạn tìm kiếm hình ảnh phong cảnh mùa thu đẹp trên internet hoặc cung cấp thông tin về mùa thu. Bạn muốn tôi làm gì?",
+        "case_failure_type": "out_of_scope",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "G02_wikipedia_search",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_wikipedia",
+        "difficulty": "easy",
+        "what_it_tests": "Tìm kiếm Wikipedia -> gọi tool wikipedia."
+      },
+      "input": "Tra Wikipedia về lịch sử phát triển của mạng Internet.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "wikipedia",
+            "args": {
+              "query": "lịch sử phát triển của mạng Internet"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "wikipedia",
+            "args": {
+              "query": "lịch sử phát triển của mạng Internet"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "wikipedia",
+          "args": {
+            "query": "lịch sử phát triển của mạng Internet"
+          },
+          "result": {
+            "tool": "wikipedia",
+            "query": "lịch sử phát triển của mạng Internet",
+            "items": [
+              {
+                "title": "Internet",
+                "url": "https://vi.wikipedia.org/wiki/Internet",
+                "source": "Wikipedia (VI)",
+                "summary": "Internet (phiên âm Tiếng Việt: in-tơ-nét) là một hệ thống thông tin toàn cầu có thể được truy nhập công cộng gồm các mạng máy tính được liên kết với nhau. Hệ thống này truyền thông tin theo kiểu nối chuyển gói dữ liệu (packet switching) dựa trên một giao thức liên mạng đã được chuẩn hóa (giao thức IP). Hệ thống này bao gồm hàng ngàn mạng máy tính nhỏ hơn của các doanh nghiệp, của các viện nghiên cứu và các trường đại học, của người dùng cá nhân và các chính phủ trên toàn cầu.\n\n"
+              },
+              {
+                "title": "Lịch sử Internet",
+                "url": "https://vi.wikipedia.org/wiki/Lịch_sử_Internet",
+                "source": "Wikipedia (VI)",
+                "summary": "Lịch sử Internet bắt đầu với việc phát triển máy tính điện tử trong những năm 1950. Các khái niệm ban đầu về mạng diện rộng bắt nguồn từ một số phòng thí nghiệm khoa học máy tính ở Mỹ, Vương quốc Anh và Pháp. Bộ Quốc phòng Mỹ đã trao các hợp đồng sớm nhất là vào những năm 1960, bao gồm cả việc phát triển dự án ARPANET, lãnh đạo bởi Robert Taylor và quản lý bởi Lawrence Roberts. Tin nhắn đầu tiên được gửi qua ARPANET vào năm 1969 từ phòng thí nghiệm của giáo sư khoa học Leonard Kleinrock tại University of California, Los Angeles (UCLA) đến nút mạng thứ hai tại Stanford Research Institute (SRI).\nMạng chuyển mạch gói như NPL network, ARPANET, Tymnet, Merit Network, CYCLADES, và Telenet, được phát triển vào cuối những năm 1960 và đầu những năm 1970 bằng nhiều giao thức truyền thông. Donald Davies lần đầu tiên chứng minh chuyển mạch gói vào năm 1967 tại  National Physics Laboratory (NPL) ở Anh, nơi đã trở thành một thử nghiệm cho nghiên cứu của Vương quốc Anh trong gần hai thập kỷ. Dự án ARPANET đã dẫn đến sự phát triển của các giao thức cho liên mạng, trong đó nhiều mạng riêng biệt có thể được nối vào một mạng các mạng.\nBộ giao thức Internet (TCP/IP) được phát triển bởi Robert E. Kahn và Vint Cerf những năm 1970 và trở thành giao thức mạng chuẩn trên ARPANET, kết hợp các khái niệm từ dự án CYCLADES của Pháp do Louis Pouzin chỉ đạo. Đầu những năm 1980, NSF đã tài trợ cho việc thành lập các trung tâm siêu máy tính quốc gia tại một số trường đại học và cung cấp kết nối vào năm 1986 với dự án NSFNET, cũng tạo ra quyền truy cập mạng vào các siêu máy tính ở Hoa Kỳ từ các tổ chức nghiên cứu và giáo dục. Các nhà cung cấp dịch vụ Internet (ISPs) bắt đầu xuất hiện vào cuối những năm 1980. ARPANET đã ngừng hoạt động vào năm 1990. Các kết nối riêng tư hạn chế với các bộ phận của Internet bởi các thực thể thương mại chính thức xuất hiện ở một số thành phố của Mỹ vào cuối năm 1989 và 1990, và NSFNET đã ngừng hoạt động vào năm 1995, xóa bỏ những hạn chế cuối cùng đối với việc sử dụng Internet để mang theo giao thông thương mại.\nVào những năm 1980, nghiên cứu tại CERN ở Thụy Sĩ của nhà khoa học máy tính người Anh Tim Berners-Lee đã đưa ra World Wide Web, liên kết các tài liệu siêu văn bản vào một hệ thống thông tin, có thể truy cập từ bất kỳ nút nào trên mạng. Từ giữa những năm 1990, Internet đã có một tác động mang tính cách mạng đối với văn hóa, thương mại và công nghệ, bao gồm sự gia tăng của giao tiếp gần như ngay lập tức bằng thư điện tử, tin nhắn tức thời, cuộc gọi qua điện thoại Giao thức Internet (VoIP), tương tác hai chiều các cuộc gọi video và World Wide Web với các diễn đàn thảo luận, blog, mạng xã hội và các trang web mua sắm trực tuyến. Cộng đồng nghiên cứu và giáo dục tiếp tục phát triển và sử dụng các mạng tiên tiến như JANET ở Vương quốc Anh và Internet2 ở Hoa Kỳ. Lượng dữ liệu ngày càng tăng được truyền ở tốc độ cao hơn và cao hơn trên các mạng cáp quang hoạt động ở tốc độ 1 Gbit/s, 10 Gbit/s hoặc nhiều hơn. Internet tiếp quản bối cảnh truyền thông toàn cầu gần như ngay lập tức về mặt lịch sử: nó chỉ truyền được 1% thông tin truyền qua mạng viễn thông hai chiều vào năm 1993, đã là 51% vào năm 2000 và hơn 97% thông tin được điều khiển vào năm 2007. ngày nay Internet tiếp tục phát triển, được thúc đẩy bởi lượng thông tin trực tuyến, thương mại, giải trí và mạng xã hội lớn hơn bao giờ hết. Tuy nhiên, tương lai của internet toàn cầu có thể được định hình bởi sự khác biệt trong khu vực trên thế giới.\n\n"
+              },
+              {
+                "title": "Lịch sử",
+                "url": "https://vi.wikipedia.org/wiki/Lịch_sử",
+                "source": "Wikipedia (VI)",
+                "summary": "Lịch sử là nghiên cứu có hệ thống về quá khứ, tập trung chủ yếu vào quá khứ của loài người. Dưới hình thức một môn học, lịch sử phân tích và diễn giải bằng chứng để tường thuật lại những gì đã xảy ra và giải thích lý do cũng như cách thức mà sự việc đó xảy ra. Một số nhà lý thuyết xem lịch sử là một môn khoa học xã hội còn số khác xem đây là bộ phận của nhân văn học hoặc là một bộ môn hỗn hợp. Có nhiều tranh luận tương tự xoay quanh mục đích của lịch sử, chẳng hạn như liệu mục tiêu chính của nó là để khám phá chân lý (hướng lý thuyết) hay là rút ra bài học kinh nghiệm từ quá khứ (hướng thực tiễn). Theo cách hiểu suy rộng, ngoài ý nghĩa lĩnh vực học thuật, thuật ngữ lịch sử còn chỉ cả bản thân quá khứ, những thời điểm trong quá khứ hoặc các văn bản riêng lẻ liên quan đến quá khứ.\nNghiên cứu lịch sử phụ thuộc vào các nguồn tư liệu sơ cấp và thứ cấp để tái hiện các sự kiện trong quá khứ và xác nhận diễn giải. Phê phán sử liệu là một phương pháp được sử dụng để đánh giá những nguồn này dựa trên tính xác thực, nội dung và độ tin cậy. Giới sử học thường cố gắng kết hợp quan điểm giữa nhiều nguồn tài liệu để tạo nên mạch tự sự thống nhất. Các trường phái tư tưởng khác nhau như chủ nghĩa thực chứng, trường phái Annales, chủ nghĩa Marx và chủ nghĩa hậu hiện đại có cách tiếp cận phương pháp luận khác nhau.\nLịch sử là một bộ môn rộng bao gồm nhiều nhánh. Một số phân nhánh tập trung vào các giai đoạn thời gian cụ thể (ví dụ như thời kỳ cổ đại), còn số khác hướng đến những khu vực địa lý nhất định (chẳng hạn như lịch sử châu Phi). Theo phạm vi lĩnh vực, lịch sử có thể được phân loại thành lịch sử chính trị, lịch sử quân sự, lịch sử xã hội, lịch sử kinh tế, v.v. Các phân nhánh theo loại tư liệu và phương pháp nghiên cứu bao gồm lịch sử định lượng, lịch sử so sánh và lịch sử truyền miệng.\nLịch sử ra đời dưới hình thức lĩnh vực nghiên cứu ở thời cổ đại thay thế những câu chuyện truyền thuyết, bắt nguồn chủ yếu ở Hy Lạp, Trung Quốc và sau này là thế giới Hồi giáo. Ghi chép lịch sử trải qua nhiều biến đổi theo thời gian và ngày càng có tính chuyên nghiệp cao, nhất là vào thế kỷ 19 với sự xuất hiện một phương pháp luận nghiêm ngặt cùng hàng loạt cơ sở học thuật được thành lập. Lịch sử có liên hệ với nhiều lĩnh vực như sử luận, triết học, giáo dục và chính trị.\n\n"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G03_arxiv_search",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_arxiv",
+        "difficulty": "easy",
+        "what_it_tests": "Tìm bài báo khoa học -> gọi tool papers."
+      },
+      "input": "Tìm các bài báo khoa học về chủ đề Quantum Computing trên arXiv.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "papers",
+            "args": {
+              "query": "Quantum Computing"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "papers",
+            "args": {
+              "query": "Quantum Computing",
+              "max_results": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "papers",
+          "args": {
+            "query": "Quantum Computing",
+            "max_results": 5
+          },
+          "result": {
+            "tool": "arxiv_search",
+            "query": "Quantum Computing",
+            "api_query": "all:Quantum AND all:Computing",
+            "total_results": 68757,
+            "items": [
+              {
+                "arxiv_id": "2211.02350v1",
+                "title": "Tierkreis: A Dataflow Framework for Hybrid Quantum-Classical Computing",
+                "summary": "We present Tierkreis, a higher-order dataflow graph program representation and runtime designed for compositional, quantum-classical hybrid algorithms. The design of the system is motivated by the remote nature of quantum computers, the need for hybrid algorithms to involve cloud and distributed computing, and the long-running nature of these algorithms. The graph-based representation reflects how designers reason about and visualise algorithms, and allows automatic parallelism and asynchronicity. A strong, static type system and higher-order semantics allow for high expressivity and compositionality in the program. The flexible runtime protocol enables third-party developers to add functionality using any language or environment. With Tierkreis, quantum software developers can easily build, visualise, verify, test, and debug complex hybrid workflows, and immediately deploy them to the cloud or a custom distributed environment.",
+                "authors": [
+                  "Seyon Sivarajah",
+                  "Lukas Heidemann",
+                  "Alan Lawrence",
+                  "Ross Duncan"
+                ],
+                "published": "2022-11-04T10:14:47Z",
+                "updated": "2022-11-04T10:14:47Z",
+                "url": "http://arxiv.org/abs/2211.02350v1",
+                "pdf_url": "https://arxiv.org/pdf/2211.02350v1",
+                "source": "arxiv.org",
+                "primary_category": "quant-ph",
+                "categories": [
+                  "quant-ph",
+                  "cs.DC"
+                ]
+              },
+              {
+                "arxiv_id": "2403.02240v5",
+                "title": "Quantum Computing: Vision and Challenges",
+                "summary": "The recent development of quantum computing, which uses entanglement, superposition, and other quantum fundamental concepts, can provide substantial processing advantages over traditional computing. These quantum features help solve many complex problems that cannot be solved otherwise with conventional computing methods. These problems include modeling quantum mechanics, logistics, chemical-based advances, drug design, statistical science, sustainable energy, banking, reliable communication, and quantum chemical engineering. The last few years have witnessed remarkable progress in quantum software and algorithm creation and quantum hardware research, which has significantly advanced the prospect of realizing quantum computers. It would be helpful to have comprehensive literature research on this area to grasp the current status and find outstanding problems that require considerable attention from the research community working in the quantum computing industry. To better understand quantum computing, this paper examines the foundations and vision based on current research in this area. We discuss cutting-edge developments in quantum computer hardware advancement and subsequent advances in quantum cryptography, quantum software, and high-scalability quantum computers. Many potential challenges and exciting new trends for quantum technology research and development are highlighted in this paper for a broader debate.",
+                "authors": [
+                  "Sukhpal Singh Gill",
+                  "Oktay Cetinkaya",
+                  "Stefano Marrone",
+                  "Daniel Claudino",
+                  "David Haunschild",
+                  "Leon Schlote",
+                  "Huaming Wu",
+                  "Carlo Ottaviani",
+                  "Xiaoyuan Liu",
+                  "Sree Pragna Machupalli",
+                  "Kamalpreet Kaur",
+                  "Priyansh Arora",
+                  "Ji Liu",
+                  "Ahmed Farouk",
+                  "Houbing Herbert Song",
+                  "Steve Uhlig",
+                  "Kotagiri Ramamohanarao"
+                ],
+                "published": "2024-03-04T17:33:18Z",
+                "updated": "2025-04-07T15:07:51Z",
+                "url": "http://arxiv.org/abs/2403.02240v5",
+                "pdf_url": "https://arxiv.org/pdf/2403.02240v5",
+                "source": "arxiv.org",
+                "primary_category": "cs.DC",
+                "categories": [
+                  "cs.DC",
+                  "cs.ET",
+                  "quant-ph"
+                ]
+              },
+              {
+                "arxiv_id": "2506.15909v1",
+                "title": "Entangling Disciplines: Causality, Entropy and Time-Travel Paradoxes on a Quantum Computer",
+                "summary": "Merging disciplines has led to incredible learnings and breakthroughs throughout history, including the discovery of quantum computing: a cross between computation and quantum physics. In this paper, I will discuss how we can cross quantum computing with topics in fundamental physics. This leads to fruitful, interactive learning opportunities that fuse deep open physics problems with key insights about quantum information science. By outlining quantum circuit experiments that can be run on current and near-term quantum computers, I demonstrate how to help learners engage with principles in special relativity, general relativity and thermodynamics. In turn, these connections can advance their understanding of quantum computing. Learners can further explore the quantum computing activities in this paper via the Quantum Paradoxes content series of videos, blogs and code tutorials that I created with IBM Quantum.",
+                "authors": [
+                  "Maria Violaris"
+                ],
+                "published": "2025-06-18T23:07:07Z",
+                "updated": "2025-06-18T23:07:07Z",
+                "url": "http://arxiv.org/abs/2506.15909v1",
+                "pdf_url": "https://arxiv.org/pdf/2506.15909v1",
+                "source": "arxiv.org",
+                "primary_category": "quant-ph",
+                "categories": [
+                  "quant-ph"
+                ]
+              },
+              {
+                "arxiv_id": "2506.21988v2",
+                "title": "Unifying communication paradigms in measurement-based delegated quantum computing",
+                "summary": "Delegated quantum computing (DQC) allows clients with low quantum capabilities to outsource computations to a server hosting a quantum computer. This process is often envisioned within the measurement-based quantum computing framework, as it naturally facilitates blindness of inputs and computation. Hence, the overall process of setting up and conducting the computation encompasses a sequence of three stages: preparing the qubits, entangling the qubits to obtain the resource state, and measuring the qubits to run the computation. There are two primary approaches to distributing these stages between the client and the server that impose different constraints on cryptographic techniques and experimental implementations. In the prepare-and-send setting, the client prepares the qubits and sends them to the server, while in the receive-and-measure setting, the client receives the qubits from the server and measures them. Although these settings have been extensively studied independently, their interrelation and whether setting-dependent theoretical constraints are inevitable remain unclear. By implementing the key components of most DQC protocols in the respective missing setting, we provide a method to build prospective protocols in both settings simultaneously and to translate existing protocols from one setting into the other.",
+                "authors": [
+                  "Fabian Wiesner",
+                  "Jens Eisert",
+                  "Anna Pappa"
+                ],
+                "published": "2025-06-27T07:54:43Z",
+                "updated": "2026-03-27T08:38:14Z",
+                "url": "http://arxiv.org/abs/2506.21988v2",
+                "pdf_url": "https://arxiv.org/pdf/2506.21988v2",
+                "source": "arxiv.org",
+                "primary_category": "quant-ph",
+                "categories": [
+                  "quant-ph",
+                  "cs.CR"
+                ]
+              },
+              {
+                "arxiv_id": "2312.06975v1",
+                "title": "Arbitrary Ground State Observables from Quantum Computed Moments",
+                "summary": "The determination of ground state properties of quantum systems is a fundamental problem in physics and chemistry, and is considered a key application of quantum computers. A common approach is to prepare a trial ground state on the quantum computer and measure observables such as energy, but this is often limited by hardware constraints that prevent an accurate description of the target ground state. The quantum computed moments (QCM) method has proven to be remarkably useful in estimating the ground state energy of a system by computing Hamiltonian moments with respect to a suboptimal or noisy trial state. In this paper, we extend the QCM method to estimate arbitrary ground state observables of quantum systems. We present preliminary results of using QCM to determine the ground state magnetisation and spin-spin correlations of the Heisenberg model in its various forms. Our findings validate the well-established advantage of QCM over existing methods in handling suboptimal trial states and noise, extend its applicability to the estimation of more general ground state properties, and demonstrate its practical potential for solving a wide range of problems on near-term quantum hardware.",
+                "authors": [
+                  "Harish J. Vallury",
+                  "Lloyd C. L. Hollenberg"
+                ],
+                "published": "2023-12-12T04:29:43Z",
+                "updated": "2023-12-12T04:29:43Z",
+                "url": "http://arxiv.org/abs/2312.06975v1",
+                "pdf_url": "https://arxiv.org/pdf/2312.06975v1",
+                "source": "arxiv.org",
+                "primary_category": "quant-ph",
+                "categories": [
+                  "quant-ph"
+                ]
+              }
+            ],
+            "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+          }
+        }
+      ]
+    },
+    {
+      "id": "G04_missing_handle_tweets",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "clarify_missing_handle",
+        "difficulty": "medium",
+        "what_it_tests": "Không nói rõ tweet của ai -> gọi clarify với response_type: text."
+      },
+      "input": "Lấy 10 tweet mới nhất giúp mình nhé.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Whose tweets would you like to retrieve?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Whose tweets would you like to retrieve?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Whose tweets would you like to retrieve?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "G05_send_confirmation",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "confirm_before_send",
+        "difficulty": "medium",
+        "what_it_tests": "Gửi tin nhắn Telegram -> hỏi xác nhận trước với response_type: yes_no."
+      },
+      "input": "Gửi thông báo này qua Telegram giúp mình ngay lập tức.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Do you confirm sending this message to Telegram?",
+              "response_type": "yes_no"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Do you confirm sending this message to Telegram?",
+            "response_type": "yes_no"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Do you confirm sending this message to Telegram?",
+            "response_type": "yes_no",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "GM01_wikipedia_refinement",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_wikipedia_refinement",
+        "difficulty": "hard",
+        "what_it_tests": "Cập nhật query của wikipedia ở turn cuối."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tra Wikipedia về Deep Learning."
+        },
+        {
+          "role": "user",
+          "content": "Đổi sang tra về Transformer model nhé."
+        },
+        {
+          "role": "user",
+          "content": "Vẫn tra trên Wikipedia nhé."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "wikipedia",
+            "args": {
+              "query": "Transformer model"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "wikipedia",
+            "args": {
+              "query": "Transformer model"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "wikipedia",
+          "args": {
+            "query": "Transformer model"
+          },
+          "result": {
+            "tool": "wikipedia",
+            "query": "Transformer model",
+            "items": [
+              {
+                "title": "Transformer (deep learning)",
+                "url": "https://en.wikipedia.org/wiki/Transformer_(deep_learning)",
+                "source": "Wikipedia",
+                "summary": "In deep learning, the transformer is a family of artificial neural network architectures based on the multi-head attention mechanism, in which text is converted to numerical representations called tokens, and each token is converted into a vector via lookup from a word embedding table. At each layer, each token is then contextualized within the scope of the context window with other (unmasked) tokens via a parallel multi-head attention mechanism, allowing the signal for key tokens to be amplified and less important tokens to be diminished. Because self-attention alone is permutation-invariant, transformers inject positional information, typically through positional encodings or learned positional embeddings, so token order can affect the output.\nTransformers have the advantage of having no recurrent units, therefore requiring less training time than earlier recurrent neural architectures (RNNs) such as long short-term memory (LSTM). Later variations have been widely adopted for training large language models (LLMs) on large (language) datasets. Modern transformer designs are commonly grouped into encoder-only, decoder-only, and encoder-decoder variants, depending on whether they are optimized for representation learning, autoregressive generation, or conditional sequence-to-sequence tasks.\n\nThe original version of the transformer architecture was proposed in the 2017 paper \"Attention Is All You Need\" by researchers at Google. The predecessors of transformers were developed as an improvement over previous architectures for machine translation, but have found many applications since. They are used in large-scale natural language processing, computer vision (vision transformers), reinforcement learning, audio, multimodal learning, robotics,, playing chess and at disaster responses. It has also led to the development of pre-trained systems, such as generative pre-trained transformers (GPTs) and BERT (bidirectional encoder representations from transformers)."
+              },
+              {
+                "title": "Generative pre-trained transformer",
+                "url": "https://en.wikipedia.org/wiki/Generative_pre-trained_transformer",
+                "source": "Wikipedia",
+                "summary": "A generative pre-trained transformer (GPT) is a type of large language model (LLM) that is widely used in generative artificial intelligence chatbots. GPTs are based on a deep learning architecture called the transformer. They are pre-trained on large datasets of unlabeled content, and able to generate novel content.\nOpenAI was the first to apply generative pre-training to the transformer architecture, introducing the GPT-1 model in 2018. The company has since released many bigger GPT models. The chatbot ChatGPT, released in late 2022 (using GPT-3.5), was followed by many competitor chatbots using their own generative pre-trained transformers to generate text, such as Gemini, DeepSeek and Claude.\nGPTs are primarily used to generate text, but can be trained to generate other kinds of data. For example, GPT-4o can process and generate text, images and audio. To improve performance on complex tasks, some GPTs, such as OpenAI o3, allocate more computation time analyzing the problem before generating an output, and are called reasoning models. In 2025, GPT-5 was released with a router that automatically selects whether to use a faster model or slower reasoning model based on the provided task.\n\n"
+              },
+              {
+                "title": "Attention Is All You Need",
+                "url": "https://en.wikipedia.org/wiki/Attention_Is_All_You_Need",
+                "source": "Wikipedia",
+                "summary": "\"Attention Is All You Need\" is a 2017 research paper in machine learning authored by eight scientists and engineers working at Google. The paper introduced a new deep learning architecture known as the transformer, based on the attention mechanism proposed in 2014 by Bahdanau et al. The transformer approach it describes has become the main architecture of a wide variety of artificial intelligence, including large language models. At the time, the focus of the research was on improving Seq2seq techniques for machine translation, but the authors go further in the paper, foreseeing the technique's potential for other tasks like question answering and what is now known as multimodal generative AI.\nSome early examples that the team tried their Transformer architecture on included English-to-German translation, generating Wikipedia articles on \"The Transformer\", and parsing. These convinced the team that the Transformer is a general-purpose language model, and not just good for translation.\nAs of 2025, the paper has been cited more than 173,000 times, placing it among the top ten most-cited papers of the 21st century. After the paper was published by Google, each of the authors left the company to join other companies or to found startups."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "GM02_arxiv_to_text",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_arxiv_text",
+        "difficulty": "hard",
+        "what_it_tests": "Chuyển từ papers sang paper_text và lấy đúng link + max_pages."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm các paper về GPT-4 trên arXiv."
+        },
+        {
+          "role": "user",
+          "content": "Lấy nội dung text của bài báo đầu tiên có link: arxiv:2303.08774"
+        },
+        {
+          "role": "user",
+          "content": "Đọc tối đa 5 trang đầu thôi nhé."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "paper_text",
+            "args": {
+              "arxiv_url": "arxiv:2303.08774",
+              "max_pages": 5
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "paper_text",
+            "args": {
+              "arxiv_url": "arxiv:2303.08774",
+              "max_pages": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "paper_text",
+          "args": {
+            "arxiv_url": "arxiv:2303.08774",
+            "max_pages": 5
+          },
+          "result": {
+            "tool": "get_arxiv_paper_text",
+            "arxiv_id": "2303.08774",
+            "url": "https://arxiv.org/abs/2303.08774",
+            "pdf_url": "https://arxiv.org/pdf/2303.08774.pdf",
+            "pdf_path": "C:\\AI_2026\\project\\group\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\arxiv_papers\\2303.08774.pdf",
+            "txt_path": "C:\\AI_2026\\project\\group\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\arxiv_papers\\2303.08774.txt",
+            "page_count": 100,
+            "pages_read": 5,
+            "chars_returned": 8000,
+            "items": [
+              {
+                "title": "arXiv paper 2303.08774",
+                "url": "https://arxiv.org/abs/2303.08774",
+                "source": "arxiv.org",
+                "summary": "GPT-4 Technical Report\nOpenAI∗\nAbstract\nWe report the development of GPT-4, a large-scale, multimodal model which can\naccept image and text inputs and produce text outputs. While less capable than\nhumans in many real-world scenarios, GPT-4 exhibits human-level performance\non various professional and academic benchmarks, including passing a simulated\nbar exam with a score around the top 10% of test takers. GPT-4 is a Transformer-\nbased model pre-trained to predict the next token in a document. The post-training\nalignment process results in improved performance on measures of factuality and\nadherence to desired behavior. A core component of this project was developing\ninfrastructure and optimization methods that behave predictably across a wide\nrange of scales. This allowed us to accurately predict some aspects of GPT-4’s\nperformance based on models trained with no more than 1/1,000th the compute of\nGPT-4.\n1 Introduction\nThis technical report presents GPT-4, a large multimodal model capable of processing image and\ntext inputs and producing text outputs. Such models are an important area of study as they have the\npotential to be used in a wide range of applications, such as dialogue systems, text summarization,\nand machine translation. As such, they have been the subject of substantial interest and progress in\nrecent years [1–34].\nOne of the main goals of developing such models is to improve their ability to understand and generate\nnatural language text, particularly in more complex and nuanced scenarios. To test its capabilities\nin such scenarios, GPT-4 was evaluated on a variety of exams originally designed for humans. In\nthese evaluations it performs quite well and often outscores the vast majority of human test takers.\nFor example, on a simulated bar exam, GPT-4 achieves a score that falls in the top 10% of test takers.\nThis contrasts with GPT-3.5, which scores in the bottom 10%.\nOn a suite of traditional NLP benchmarks, GPT-4 outperforms both previous large language models\nand most state-of-the-art systems (which often have benchmark-specific training or hand-engineering).\nOn the MMLU benchmark [35, 36], an English-language suite of multiple-choice questions covering\n57 subjects, GPT-4 not only outperforms existing models by a considerable margin in English, but\nalso demonstrates strong performance in other languages. On translated variants of MMLU, GPT-4\nsurpasses the English-language state-of-the-art in 24 of 26 languages considered. We discuss these\nmodel capability results, as well as model safety improvements and results, in more detail in later\nsections.\nThis report also discusses a key challenge of the project, developing deep learning infrastructure and\noptimization methods that behave predictably across a wide range of scales. This allowed us to make\npredictions about the expected performance of GPT-4 (based on small runs trained in similar ways)\nthat were tested against the final run to increase confidence in our training.\nDespite its capabilities, GPT-4 has similar limitations to earlier GPT models [1, 37, 38]: it is not fully\nreliable (e.g. can suffer from “hallucinations”), has a limited context window, and does not learn\n∗Please cite this work as “OpenAI (2023)\". Full authorship contribution statements appear at the end of the\ndocument. Correspondence regarding this technical report can be sent to gpt4-report@openai.com\narXiv:2303.08774v6  [cs.CL]  4 Mar 2024\n\nfrom experience. Care should be taken when using the outputs of GPT-4, particularly in contexts\nwhere reliability is important.\nGPT-4’s capabilities and limitations create significant and novel safety challenges, and we believe\ncareful study of these challenges is an important area of research given the potential societal impact.\nThis report includes an extensive system card (after the Appendix) describing some of the risks we\nforesee around bias, disinformation, over-reliance, privacy, cybersecurity, proliferation, and more.\nIt also describes interventions we made to mitigate potential harms from the deployment of GPT-4,\nincluding adversarial testing with domain experts, and a model-assisted safety pipeline.\n2 Scope and Limitations of this Technical Report\nThis report focuses on the capabilities, limitations, and safety properties of GPT-4. GPT-4 is a\nTransformer-style model [39] pre-trained to predict the next token in a document, using both publicly\navailable data (such as internet data) and data licensed from third-party providers. The model was\nthen fine-tuned using Reinforcement Learning from Human Feedback (RLHF) [ 40]. Given both\nthe competitive landscape and the safety implications of large-scale models like GPT-4, this report\ncontains no further details about the architecture (including model size), hardware, training compute,\ndataset construction, training method, or similar.\nWe are committed to independent auditing of our technologies, and shared some initial steps and\nideas in this area in the system card accompanying this release.2 We plan to make further technical\ndetails available to additional third parties who can advise us on how to weigh the competitive and\nsafety considerations above against the scientific value of further transparency.\n3 Predictable Scaling\nA large focus of the GPT-4 project was building a deep learning stack that scales predictably. The\nprimary reason is that for very large training runs like GPT-4, it is not feasible to do extensive\nmodel-specific tuning. To address this, we developed infrastructure and optimization methods that\nhave very predictable behavior across multiple scales. These improvements allowed us to reliably\npredict some aspects of the performance of GPT-4 from smaller models trained using 1, 000× –\n10, 000× less compute.\n3.1 Loss Prediction\nThe final loss of properly-trained large language models is thought to be well approximated by power\nlaws in the amount of compute used to train the model [41, 42, 2, 14, 15].\nTo verify the scalability of our optimization infrastructure, we predicted GPT-4’s final loss on our\ninternal codebase (not part of the training set) by fitting a scaling law with an irreducible loss term\n(as in Henighan et al. [15]): L(C) = aC b + c, from models trained using the same methodology\nbut using at most 10,000x less compute than GPT-4. This prediction was made shortly after the run\nstarted, without use of any partial results. The fitted scaling law predicted GPT-4’s final loss with\nhigh accuracy (Figure 1).\n3.2 Scaling of Capabilities on HumanEval\nHaving a sense of the capabilities of a model before training can improve decisions around alignment,\nsafety, and deployment. In addition to predicting final loss, we developed methodology to predict\nmore interpretable metrics of capability. One such metric is pass rate on the HumanEval dataset [43],\nwhich measures the ability to synthesize Python functions of varying complexity. We successfully\npredicted the pass rate on a subset of the HumanEval dataset by extrapolating from models trained\nwith at most 1, 000× less compute (Figure 2).\nFor an individual problem in HumanEval, performance may occasionally worsen with scale. Despite\nthese challenges, we find an approximate power law relationship−EP [log(pass_rate(C))] = α∗C−k\n2In addition to the accompanying system card, OpenAI will soon publish additional thoughts on the social\nand economic implications of AI systems, including the need for effective regulation.\n2\n\nObserved\nPrediction\ngpt-4\n100p 10n 1µ 100µ 0.01 1\nCompute\n1.0\n2.0\n3.0\n4.0\n5.0\n6.0\nBits per word\nOpenAI codebase next word prediction\nFigure 1. Performance of GPT-4 and smaller models. The metric is final loss on a dataset derived\nfrom our internal codebase. This is a convenient, large dataset of code tokens which is not contained in\nthe training set. We chose to look at loss because it tends to be less noisy than other measures across\ndifferent amounts of training compute. A power law fit to the smaller models (excluding GPT-4) is\nshown as the do"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "GM03_persistent_out_of_scope",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "persistent_out_of_scope",
+        "difficulty": "medium",
+        "what_it_tests": "Người dùng nài nỉ lập trình -> vẫn tiếp tục từ chối, KHÔNG gọi tool."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Viết giúp mình một game Flappy Bird bằng Python."
+        },
+        {
+          "role": "user",
+          "content": "Đi mà, chỉ cần viết một hàm chính thôi."
+        },
+        {
+          "role": "user",
+          "content": "Không cần viết hết, viết phần game loop thô sơ thôi."
+        }
+      ],
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Xin lỗi, nhưng tôi không thể giúp bạn viết mã hoặc giải quyết các vấn đề lập trình. Tuy nhiên, tôi có thể hỗ trợ bạn tìm kiếm thông tin hoặc tài liệu liên quan đến lập trình game. Bạn có muốn tìm hiểu thêm về điều đó không?",
+        "case_failure_type": "out_of_scope",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "GM04_clarify_name_mapping",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_clarify_name_mapping",
+        "difficulty": "hard",
+        "what_it_tests": "Hỏi lại khi thiếu handle, sau đó nhận tên thường Andrej Karpathy -> map thành handle karpathy và limit=3."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tóm tắt các bài đăng mới nhất."
+        },
+        {
+          "role": "user",
+          "content": "Của Andrej Karpathy nhé."
+        },
+        {
+          "role": "user",
+          "content": "Lấy đúng 3 tweet thôi."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "karpathy",
+              "limit": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "karpathy",
+              "limit": 3
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "karpathy",
+            "limit": 3
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "error": "HTTPError",
+            "message": "403 Client Error: Forbidden for url: https://twitter-api45.p.rapidapi.com/timeline.php?screenname=karpathy"
+          }
+        }
+      ]
+    },
+    {
+      "id": "GM05_papers_to_wikipedia",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_switch_to_wikipedia",
+        "difficulty": "hard",
+        "what_it_tests": "Chuyển đổi công cụ từ papers sang wikipedia, giữ nguyên chủ đề Superconductivity."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm paper về Superconductivity trên arXiv."
+        },
+        {
+          "role": "user",
+          "content": "Thôi bỏ arXiv đi, tìm thông tin giải thích trên Wikipedia."
+        },
+        {
+          "role": "user",
+          "content": "Vẫn tìm về Superconductivity nhé."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "wikipedia",
+            "args": {
+              "query": "Superconductivity"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "wikipedia",
+            "args": {
+              "query": "Superconductivity"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "wikipedia",
+          "args": {
+            "query": "Superconductivity"
+          },
+          "result": {
+            "tool": "wikipedia",
+            "query": "Superconductivity",
+            "items": [
+              {
+                "title": "Superconductivity",
+                "url": "https://en.wikipedia.org/wiki/Superconductivity",
+                "source": "Wikipedia",
+                "summary": "Superconductivity is a set of physical properties observed in superconductors: materials where electrical resistance vanishes and magnetic fields are expelled from the material. Unlike an ordinary metallic conductor, whose resistance decreases gradually as its temperature is lowered, even down to near absolute zero, a superconductor has a characteristic critical temperature below which the resistance drops abruptly to zero. An electric current through a loop of superconducting wire can persist indefinitely with no power source.\nThe superconductivity phenomenon was discovered in 1911 by Dutch physicist Heike Kamerlingh Onnes. Like ferromagnetism and atomic spectral lines, superconductivity is a phenomenon which can only be explained by quantum mechanics. It is characterized by the Meissner effect, the complete cancellation of the magnetic field in the interior of the superconductor during its transitions into the superconducting state. The occurrence of the Meissner effect indicates that superconductivity cannot be understood simply as the idealization of perfect conductivity in classical physics.\nIn 1986, it was discovered that some cuprate-perovskite ceramic materials have a critical temperature above 35 K (−238 °C). It was shortly found (by Ching-Wu Chu) that replacing the lanthanum with yttrium, i.e. making YBCO, raised the critical temperature to 92 K (−181 °C), which was important because liquid nitrogen could then be used as a refrigerant. Such a high transition temperature is theoretically impossible for a conventional superconductor, leading the materials to be termed high-temperature superconductors. The cheaply available coolant liquid nitrogen boils at 77 K (−196 °C) and thus the existence of superconductivity at higher temperatures than this facilitates many experiments and applications that are less practical at lower temperatures."
+              },
+              {
+                "title": "High-temperature superconductivity",
+                "url": "https://en.wikipedia.org/wiki/High-temperature_superconductivity",
+                "source": "Wikipedia",
+                "summary": "High-temperature superconductivity (high-Tc or HTS) is superconductivity in materials with a critical temperature (the temperature below which the material behaves as a superconductor) above 77 K (−196.2 °C; −321.1 °F), the boiling point of liquid nitrogen. They are \"high-temperature\" only relative to previously known superconductors, which function only closer to absolute zero. The first high-temperature superconductor was discovered in 1986 by IBM researchers Georg Bednorz and K. Alex Müller. Although the critical temperature is around 35.1 K (−238.1 °C; −396.5 °F), this material was modified by Ching-Wu Chu to make the first high-temperature superconductor with critical temperature 93 K (−180.2 °C; −292.3 °F). Bednorz and Müller were awarded the Nobel Prize in Physics in 1987 \"for their important break-through in the discovery of superconductivity in ceramic materials\". Most high-Tc materials are type-II superconductors.\nThe major advantage of high-temperature superconductors is that they can be cooled using liquid nitrogen, in contrast to previously known superconductors, which require expensive and hard-to-handle coolants, primarily liquid helium. A second advantage of high-Tc materials is they retain their superconductivity in higher magnetic fields than previous materials. This is important when constructing superconducting magnets, a primary application of high-Tc materials.\nThe majority of high-temperature superconductors are ceramics, rather than the previously known metallic materials. Ceramic superconductors are suitable for some practical uses but encounter manufacturing issues. For example, most ceramics are brittle, which complicates wire fabrication. \nThe main class of high-temperature superconductors is copper oxides combined with other metals, especially the rare-earth barium copper oxides (REBCOs) such as yttrium barium copper oxide (YBCO). The second class of high-temperature superconductors in the practical classification is the iron-based compounds. Magnesium diboride is sometimes included in high-temperature superconductors: It is relatively simple to manufacture, but it superconducts only below 39 K (−234.2 °C), which makes it unsuitable for liquid nitrogen cooling."
+              },
+              {
+                "title": "History of superconductivity",
+                "url": "https://en.wikipedia.org/wiki/History_of_superconductivity",
+                "source": "Wikipedia",
+                "summary": "Superconductivity is the phenomenon of certain materials exhibiting zero electrical resistance and the expulsion of magnetic fields below a characteristic temperature. The history of superconductivity began with Dutch physicist Heike Kamerlingh Onnes's discovery of superconductivity in mercury in 1911. Since then, many other superconducting materials have been discovered and the theory of superconductivity has been developed. These subjects remain active areas of study in the field of condensed matter physics.\nThe study of superconductivity has a fascinating history, with several breakthroughs having dramatically accelerated publication and patenting activity in this field, as shown in the figure on the right and described in details below. Throughout its 100+ year history the number of non-patent publications per year about superconductivity has been a factor of 10 larger than the number of patent families, which is characteristic of a technology, that has not achieved a substantial commercial success (see Technological applications of superconductivity)."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G06_github_search",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_github",
+        "difficulty": "easy",
+        "what_it_tests": "Tìm kiếm GitHub -> gọi tool github_search."
+      },
+      "input": "Tìm các repository về 'stable diffusion' trên GitHub.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "github_search",
+            "args": {
+              "query": "stable diffusion"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "github_search",
+            "args": {
+              "query": "stable diffusion",
+              "limit": 5,
+              "sort": "stars"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "github_search",
+          "args": {
+            "query": "stable diffusion",
+            "limit": 5,
+            "sort": "stars"
+          },
+          "result": {
+            "tool": "github_search",
+            "query": "stable diffusion",
+            "items": [
+              {
+                "title": "AUTOMATIC1111/stable-diffusion-webui",
+                "url": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
+                "source": "GitHub",
+                "summary": "Stable Diffusion web UI",
+                "stars": 163390,
+                "language": "Python"
+              },
+              {
+                "title": "CompVis/stable-diffusion",
+                "url": "https://github.com/CompVis/stable-diffusion",
+                "source": "GitHub",
+                "summary": "A latent text-to-image diffusion model",
+                "stars": 73067,
+                "language": "Jupyter Notebook"
+              },
+              {
+                "title": "invoke-ai/InvokeAI",
+                "url": "https://github.com/invoke-ai/InvokeAI",
+                "source": "GitHub",
+                "summary": "Invoke is a leading creative engine for Stable Diffusion models, empowering professionals, artists, and enthusiasts to generate and create visual media using the latest AI-driven technologies. The solution offers an industry leading WebUI, and serves as the foundation for multiple commercial products.",
+                "stars": 27323,
+                "language": "TypeScript"
+              },
+              {
+                "title": "Sanster/IOPaint",
+                "url": "https://github.com/Sanster/IOPaint",
+                "source": "GitHub",
+                "summary": "Image inpainting tool powered by SOTA AI Model. Remove any unwanted object, defect, people from your pictures or erase and replace(powered by stable diffusion) any thing on your pictures.",
+                "stars": 23157,
+                "language": "Python"
+              },
+              {
+                "title": "apple/ml-stable-diffusion",
+                "url": "https://github.com/apple/ml-stable-diffusion",
+                "source": "GitHub",
+                "summary": "Stable Diffusion with Core ML on Apple Silicon",
+                "stars": 17861,
+                "language": "Python"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "GM06_github_sort_refinement",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_github_refinement",
+        "difficulty": "hard",
+        "what_it_tests": "Cập nhật query, limit và sort của github_search qua nhiều lượt."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm repository về 'langchain' trên GitHub."
+        },
+        {
+          "role": "user",
+          "content": "Sắp xếp theo các repo mới cập nhật nhé."
+        },
+        {
+          "role": "user",
+          "content": "Lấy 10 kết quả."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "github_search",
+            "args": {
+              "query": "langchain",
+              "limit": 10,
+              "sort": "updated"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "github_search",
+            "args": {
+              "query": "langchain",
+              "limit": 10,
+              "sort": "updated"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "github_search",
+          "args": {
+            "query": "langchain",
+            "limit": 10,
+            "sort": "updated"
+          },
+          "result": {
+            "tool": "github_search",
+            "query": "langchain",
+            "items": [
+              {
+                "title": "dfghdrtawD/TrustLayer--Security-Control-Plane-For-LLM-AI",
+                "url": "https://github.com/dfghdrtawD/TrustLayer--Security-Control-Plane-For-LLM-AI",
+                "source": "GitHub",
+                "summary": "🛡️ Secure AI agents with TrustLayer's LLM Firewall, block prompt injection, detect drift, and activate kill switches in seconds.",
+                "stars": 2,
+                "language": null
+              },
+              {
+                "title": "Subhopriyo/chatbot",
+                "url": "https://github.com/Subhopriyo/chatbot",
+                "source": "GitHub",
+                "summary": "🤖 Build an intelligent chatbot that interacts with users, answers queries, and provides seamless communication through advanced AI technology.",
+                "stars": 0,
+                "language": "JavaScript"
+              },
+              {
+                "title": "Ojcalzada/pulsepoint-RAG",
+                "url": "https://github.com/Ojcalzada/pulsepoint-RAG",
+                "source": "GitHub",
+                "summary": "🩺 Synthesize reliable health insights from community experiences with PulsePoint's advanced retrieval-augmented generation system.",
+                "stars": 0,
+                "language": "Python"
+              },
+              {
+                "title": "monuro/github-ai-assistant",
+                "url": "https://github.com/monuro/github-ai-assistant",
+                "source": "GitHub",
+                "summary": "🤖 Boost your development workflow with this AI-powered GitHub command-line assistant for quicker and smarter coding.",
+                "stars": 1,
+                "language": "Java"
+              },
+              {
+                "title": "panchalsagar303/Universal-Chat",
+                "url": "https://github.com/panchalsagar303/Universal-Chat",
+                "source": "GitHub",
+                "summary": "💬 Build a high-performance, real-time chat application with Django, Go, PostgreSQL, and Next.js for seamless user experiences and fast connections.",
+                "stars": 0,
+                "language": "Python"
+              },
+              {
+                "title": "amitk741/RAGnarok-AI",
+                "url": "https://github.com/amitk741/RAGnarok-AI",
+                "source": "GitHub",
+                "summary": "🛠️ Evaluate and benchmark your RAG pipelines locally with RAGnarok-AI—no API keys needed for reliable LLM application monitoring.",
+                "stars": 0,
+                "language": "Python"
+              },
+              {
+                "title": "CoDiGet/agent-skill-git-checkpoint",
+                "url": "https://github.com/CoDiGet/agent-skill-git-checkpoint",
+                "source": "GitHub",
+                "summary": "🛡️ Automate local code backups with AI in Git. Safeguard your projects by committing changes without ever pushing to remote repositories.",
+                "stars": 0,
+                "language": null
+              },
+              {
+                "title": "Desilva93/AI-health-report-analyzer",
+                "url": "https://github.com/Desilva93/AI-health-report-analyzer",
+                "source": "GitHub",
+                "summary": "AI-powered Blood Work Analyzer built with Streamlit, LangChain, and Gemini API to generate health summaries and Indian diet recommendations from blood test reports.",
+                "stars": 0,
+                "language": "Jupyter Notebook"
+              },
+              {
+                "title": "anantha037/lexshield-ai",
+                "url": "https://github.com/anantha037/lexshield-ai",
+                "source": "GitHub",
+                "summary": "AI-powered Indian legal intelligence platform — multi-agent LangGraph system with hybrid RAG, 6-layer memory architecture, and LLM-based intent classification. Helps citizens understand their legal rights.",
+                "stars": 2,
+                "language": "Python"
+              },
+              {
+                "title": "codehermit/langchain-starter",
+                "url": "https://github.com/codehermit/langchain-starter",
+                "source": "GitHub",
+                "summary": "learning langchain 1.0 in action",
+                "stars": 0,
+                "language": "Python"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G07_translate_text",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "translate_text",
+        "difficulty": "easy",
+        "what_it_tests": "Yêu cầu dịch văn bản -> gọi tool translate."
+      },
+      "input": "Dịch giúp mình đoạn này sang tiếng Việt: 'Artificial Intelligence is transforming our future'",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "translate",
+            "args": {
+              "text": "Artificial Intelligence is transforming our future",
+              "target_lang": "vi"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "translate",
+            "args": {
+              "text": "Artificial Intelligence is transforming our future",
+              "target_lang": "vi"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "translate",
+          "args": {
+            "text": "Artificial Intelligence is transforming our future",
+            "target_lang": "vi"
+          },
+          "result": {
+            "tool": "translate",
+            "original_text": "Artificial Intelligence is transforming our future",
+            "translated_text": "Trí tuệ nhân tạo đang thay đổi tương lai của chúng ta",
+            "source_lang": "auto",
+            "target_lang": "vi"
+          }
+        }
+      ]
+    },
+    {
+      "id": "G08_crypto_price",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "crypto_price",
+        "difficulty": "easy",
+        "what_it_tests": "Yêu cầu lấy giá crypto -> gọi tool crypto."
+      },
+      "input": "Giá của đồng coin ETH hiện tại trên Binance là bao nhiêu?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "crypto",
+            "args": {
+              "symbol": "ETH"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "crypto",
+            "args": {
+              "symbol": "ETH"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "crypto",
+          "args": {
+            "symbol": "ETH"
+          },
+          "result": {
+            "tool": "crypto",
+            "symbol": "ETH",
+            "price": 1984.05,
+            "pair": "ETHUSDT",
+            "source": "Binance"
+          }
+        }
+      ]
+    },
+    {
+      "id": "G09_weather_info",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "weather_info",
+        "difficulty": "easy",
+        "what_it_tests": "Yêu cầu lấy thông tin thời tiết -> gọi tool weather."
+      },
+      "input": "Thời tiết hiện tại ở Đà Nẵng thế nào?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "weather",
+            "args": {
+              "location": "Đà Nẵng"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "weather",
+            "args": {
+              "location": "Đà Nẵng"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "weather",
+          "args": {
+            "location": "Đà Nẵng"
+          },
+          "result": {
+            "tool": "weather",
+            "location": "Đà Nẵng",
+            "temperature_celsius": "33",
+            "description": "Sunny",
+            "humidity_percent": "56",
+            "wind_speed_kmh": "18",
+            "source": "wttr.in"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -147,6 +147,80 @@
       "failure_type": "wrong_tool",
       "expect": {"tool_calls": [{"name": "weather", "args": {"location": "Đà Nẵng"}}]},
       "metadata": {"skill": "weather_info", "difficulty": "easy", "what_it_tests": "Yêu cầu lấy thông tin thời tiết -> gọi tool weather."}
+    },
+    {
+      "id": "G10_policy_citation",
+      "phase": "B",
+      "query": "Chính sách trích dẫn nguồn (source citation) của công ty đối với arXiv là gì?",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "policy", "args": {"policy_area": "source_citation", "query": "arXiv"}}]},
+      "metadata": {"skill": "policy_citation_search", "difficulty": "medium", "what_it_tests": "Tìm kiếm chính sách trích dẫn nguồn -> gọi policy với area source_citation và query arXiv."}
+    },
+    {
+      "id": "GM07_send_telegram_confirmed",
+      "phase": "B",
+      "turns": [
+        {"role": "user", "content": "Đăng thông báo 'Hello World' lên Telegram giúp mình nhé."},
+        {"role": "assistant", "content": "Do you confirm sending this message to Telegram?"},
+        {"role": "user", "content": "Có, mình đồng ý gửi."}
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {"tool_calls": [{"name": "send", "args": {"text": "Hello World", "confirmed": true}}]},
+      "metadata": {"skill": "multiturn_send_confirmed", "difficulty": "hard", "what_it_tests": "Sau khi được xác nhận đồng ý từ user -> gọi tool send với confirmed=true."}
+    },
+    {
+      "id": "GM08_translate_refinement",
+      "phase": "B",
+      "turns": [
+        {"role": "user", "content": "Dịch câu 'Hello' sang tiếng Pháp (fr) giúp mình."},
+        {"role": "user", "content": "Đổi sang dịch câu 'Good morning' nhé."},
+        {"role": "user", "content": "Vẫn dịch sang tiếng Pháp nhé."}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {"tool_calls": [{"name": "translate", "args": {"text": "Good morning", "target_lang": "fr"}}]},
+      "metadata": {"skill": "multiturn_translate_carryover", "difficulty": "hard", "what_it_tests": "Carryover tham số target_lang qua các lượt dịch."}
+    },
+    {
+      "id": "GM09_crypto_switching",
+      "phase": "B",
+      "turns": [
+        {"role": "user", "content": "Giá Bitcoin hôm nay thế nào?"},
+        {"role": "user", "content": "Thế còn Ethereum (ETH) thì sao?"}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {"tool_calls": [{"name": "crypto", "args": {"symbol": "ETH"}}]},
+      "metadata": {"skill": "multiturn_crypto_switching", "difficulty": "medium", "what_it_tests": "Chuyển từ kiểm tra giá BTC sang ETH."}
+    },
+    {
+      "id": "GM10_weather_switching",
+      "phase": "B",
+      "turns": [
+        {"role": "user", "content": "Thời tiết ở Hà Nội hôm nay ra sao?"},
+        {"role": "user", "content": "Đổi sang xem thời tiết ở Sài Gòn nhé."}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {"tool_calls": [{"name": "weather", "args": {"location": "Sài Gòn"}}]},
+      "metadata": {"skill": "multiturn_weather_switching", "difficulty": "medium", "what_it_tests": "Chuyển địa điểm kiểm tra thời tiết từ Hà Nội sang Sài Gòn."}
+    },
+    {
+      "id": "G11_policy_privacy",
+      "phase": "B",
+      "query": "Tra chính sách bảo mật dữ liệu (data privacy) của công ty.",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "policy", "args": {"policy_area": "data_privacy"}}]},
+      "metadata": {"skill": "policy_privacy_search", "difficulty": "easy", "what_it_tests": "Tra cứu chính sách bảo mật thông tin -> gọi policy với area data_privacy."}
+    },
+    {
+      "id": "GM11_github_stars",
+      "phase": "B",
+      "turns": [
+        {"role": "user", "content": "Tìm các repository về 'face recognition' trên GitHub."},
+        {"role": "user", "content": "Sắp xếp theo số sao (stars) nhé."},
+        {"role": "user", "content": "Lấy 5 kết quả đầu tiên nhé."}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {"tool_calls": [{"name": "github_search", "args": {"query": "face recognition", "sort": "stars", "limit": 5}}]},
+      "metadata": {"skill": "multiturn_github_stars", "difficulty": "hard", "what_it_tests": "Sắp xếp kết quả tìm kiếm Github theo stars qua các turn hội thoại."}
     }
   ]
 }
